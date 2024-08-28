@@ -23,21 +23,25 @@ public class InsertarDatos {
             //Connectarse BD
             Statement statement = conexion.createStatement();
 
+            // Eliminar la tabla si existe
+            String borrarTablaSQL = "DROP TABLE IF EXISTS datos";
+            statement.executeUpdate(borrarTablaSQL);
+
             // Crear la tabla si no existe
             String crearTablaSQL = "CREATE TABLE IF NOT EXISTS datos ("
-                    + "tipo VARCHAR(2), "
-                    + "campo1 VARCHAR(10), "
-                    + "campo2 VARCHAR(1), "
-                    + "campo3 VARCHAR(3), "
-                    + "campo4 VARCHAR(3), "
-                    + "campo5 VARCHAR(6), "
-                    + "campo6 VARCHAR(30), "
-                    + "campo7 VARCHAR(1), "
-                    + "campo8 VARCHAR(2), "
-                    + "campo9 VARCHAR(1), "
-                    + "campo10 VARCHAR(6), "
-                    + "campo11 VARCHAR(6), "
-                    + "campo12 VARCHAR(10) "
+                    + "cvediv VARCHAR(2), "
+                    + "cvezona VARCHAR(3), "
+                    + "cveagen VARCHAR(1), "
+                    + "cveedo VARCHAR(1), "
+                    + "cvemunicipio VARCHAR(3), "
+                    + "cvecol VARCHAR(6), "
+                    + "descripcion VARCHAR(30), "
+                    + "tipocol VARCHAR(1), "
+                    + "tarifa VARCHAR(2), "
+                    + "cvemensaje VARCHAR(1), "
+                    + "centro VARCHAR(6), "
+                    + "cve_pob VARCHAR(6), "
+                    + "cp VARCHAR(6) "
                     + ")";
 
             statement.execute(crearTablaSQL);
@@ -50,8 +54,8 @@ public class InsertarDatos {
                 String[] datos = linea.split("\\|end\\|");
 
                 // Preparar la consulta SQL
-                String sql = "INSERT INTO datos (tipo, campo1, campo2, campo3, campo4, campo5, campo6, campo7, campo8, campo9, campo10, campo11, campo12) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO datos (cvediv, cvezona, cveagen, cveedo, cvemunicipio, cvecol, descripcion, tipocol, tarifa, cvemensaje, centro, cve_pob, cp) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)";
                 PreparedStatement ps = conexion.prepareStatement(sql);
                 ps.setString(1, datos[0]);
                 ps.setString(2, datos[1]);
@@ -84,4 +88,3 @@ public class InsertarDatos {
             }
         }
     }
-}
